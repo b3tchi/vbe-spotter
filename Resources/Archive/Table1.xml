@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataroot xmlns:od="urn:schemas-microsoft-com:officedata" generated="2020-05-22T21:00:32">
+    <Table1>
+        <ID>1</ID>
+        <Field1>X</Field1>
+    </Table1>
+    <Table1>
+        <ID>2</ID>
+        <Field1>X</Field1>
+    </Table1>
+    <Table1>
+        <ID>3</ID>
+        <Field1>Y</Field1>
+    </Table1>
+    <Table1>
+        <ID>4</ID>
+        <Field1>Y</Field1>
+    </Table1>
+</dataroot>
