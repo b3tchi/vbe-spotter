@@ -15,6 +15,7 @@ Import-Module $PSScriptRoot/../src/lib_spotter.ps1
 [Hashtable]$modules= @{}
 
 [string]$excelFile = "C:\Users\czJaBeck\OneDrive - LEGO\Documents\Unicodefix.xlsm"
+[string]$shadowRepo ="C:\Users\czJaBeck\Repositories\LocalWeb_Ps\codes\shadowrepo\"
 
 #Test1
 # RepoChanged $dbFile $exportLocation $changeDate
@@ -153,7 +154,7 @@ function ImportForm_T($proj,$moduleName,$ExportLocation){
 
 }
 
-function TestRun(){
+function CodeIO_Test(){
   # $moduleName = 'lib_symbols'
   $moduleName = 'Sheet2'
 
@@ -178,26 +179,83 @@ function TestRun(){
   $code = GetCode_T $module
 
   #FormInOut Test
+
   ImportForm_T $proj 'UserForm1' $ExportLocation
   ExportForm_T $proj 'UserForm1' $ExportLocation
 
+}
 
+function HashTables_Test(){
 
-  # $modules cleanup
-  # for ($i = 1; $i -lt 2; $i++) {
-  #   $module1 = GetCodeModule $proj "lib_symbols2$i"
-  #   RemoveCodeModule $proj $module1
-  # }
+  $app = GetExcel_T
 
-  #import standard class
-  # $module = ImportCode $proj $moduleDestination
+  $proj = GetProject_T $app
 
-  #import special class
-  # $module = ImportCode $proj $moduleDestination2
+  $codes = ModulesToHashtable $proj
+  $codes2 = Get-DeepClone $codes
+
+  $codes2.Remove('Sheet11')
+  $codes2['Sheet_AddedTest']='newcode'
+  $codes2['Sheet2']='test'
+
+  # Write-Information 'Nextitem'  -InformationAction Continue
+
+  # $codes
+
+  '----removed'
+  $removed = CompareHashtableKeys $codes $codes2
+  $removed
+
+  '----added'
+  $added = CompareHashtableKeys $codes2 $codes
+  $added
+
+  '----changed'
+  $changed = CompareHashtableValues $codes $codes2
+  $changed
 
 }
 
+function InOut_Test(){
+
+  $app = GetExcel_T
+
+  $proj = GetProject_T $app
+
+  $codes = ModulesToHashtable $proj
+
+  # HashToFolder $shadowRepo $codes
+
+  $codes2 = HashFromFolder $shadowRepo
+
+  # $codes2
+  $code1 =$codes['Sheet2']
+  $code2 =$codes2['Sheet2']
 
 
-# TestExcel
-TestRun
+  if($code1 -eq $code2){
+    'items match'
+  }else{
+    'items not match'
+  }
+
+
+  'code1-----'
+  Write-Information "$code1" -InformationAction Continue
+  'code1-----'
+  $code1 -match "\r\n$"
+
+  'code2-----'
+  Write-Information "$code2" -InformationAction Continue
+  'code2-----'
+  $code2 -match "\r\n$"
+
+  'end'
+  # (Get-Content $code -Raw)
+
+}
+
+## Tests
+HashTables_Test
+# CodeIO_Test
+# InOut_Test
