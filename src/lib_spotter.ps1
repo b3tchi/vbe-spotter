@@ -60,6 +60,7 @@ function RemoveCode($codeModule){
 }
 
 function ExportCode($codeModule, $path){
+
   $COMPONENT_TYPE_MODULE = 1
   $COMPONENT_TYPE_CLASS = 2
   $COMPONENT_TYPE_FORM = 3
