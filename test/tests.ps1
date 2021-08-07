@@ -192,7 +192,7 @@ function HashTables_Test(){
   $proj = GetProject_T $app
 
   $codes = ModulesToHashtable $proj
-  $codes2 = Get-DeepClone $codes
+  $codes2 = Get-DeepClone_Single $codes
 
   $codes2.Remove('Sheet11')
   $codes2['Sheet_AddedTest']='newcode'
@@ -256,6 +256,6 @@ function InOut_Test(){
 }
 
 ## Tests
-HashTables_Test
+# HashTables_Test
 # CodeIO_Test
-# InOut_Test
+InOut_Test

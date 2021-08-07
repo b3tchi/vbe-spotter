@@ -176,7 +176,7 @@ function Get-DeepClone_Single {
     process {
       $clone = @{}
 
-      if ($filter)
+      # if ($filter){
       foreach($key in $InputObject.keys) {
           $clone[$key] = $InputObject[$key]
       }
