@@ -255,7 +255,15 @@ function InOut_Test(){
 
 }
 
+function ActiveXTest() {
+  $app = CreateAccess
+
+  $app.Visible = $true
+
+}
+
 ## Tests
 # HashTables_Test
 # CodeIO_Test
-InOut_Test
+# InOut_Test
+ActiveXTest

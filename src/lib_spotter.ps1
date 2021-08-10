@@ -4,9 +4,19 @@ function GetExcel($scriptPath) {
 
   [void][System.Reflection.Assembly]::LoadWithPartialName("Microsoft.VisualBasic")
 
+  Write-Information "Trying to attach to - $scriptPath" -InformationAction Continue
+
   $TargetApp = [Microsoft.VisualBasic.Interaction]::GetObject($scriptPath)
 
   return $TargetApp.Application
+
+}
+
+function CreateAccess(){
+
+  $appAccess =  New-Object -COMObject Access.Application
+
+  return $appAccess
 
 }
 
@@ -33,7 +43,6 @@ function GetProject($officeApp){
     }elseif ($appName -eq "Excel"){
         $vbproj = $officeApp.workbooks(1).vbProject
     }
-
 
     return $vbproj
 }
